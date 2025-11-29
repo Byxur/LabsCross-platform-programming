@@ -1,0 +1,79 @@
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class StudentManager {
+
+    private Student[] students;
+
+    public StudentManager(Student[] students) {
+        this.students = students;
+    }
+
+    // Метод для виведення списку студентів заданого факультету
+    public void listStudentsByFaculty(String targetFaculty) {
+        System.out.println("\n--- Студенти факультету '" + targetFaculty + "' ---");
+        boolean found = false;
+        for (Student s : students) {
+            if (s.getFaculty().equalsIgnoreCase(targetFaculty)) {
+                System.out.println(s);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Студентів на цьому факультеті не знайдено.");
+        }
+    }
+
+    // Метод для виведення списків студентів для кожного факультету та курсу
+    public void listStudentsByFacultyAndCourse() {
+        System.out.println("\n--- Списки студентів по факультетах та курсах ---");
+        // Сортуємо масив для зручного групування при виведенні
+        Arrays.sort(students, Comparator
+                .comparing(Student::getFaculty)
+                .thenComparingInt(Student::getCourse));
+
+        String currentFaculty = "";
+        int currentCourse = 0;
+
+        for (Student s : students) {
+            if (!s.getFaculty().equals(currentFaculty) || s.getCourse() != currentCourse) {
+                currentFaculty = s.getFaculty();
+                currentCourse = s.getCourse();
+                System.out.println("\nФакультет: " + currentFaculty + ", Курс: " + currentCourse);
+            }
+            System.out.println(s);
+        }
+    }
+
+    // Метод для виведення списку студентів, які народились після заданого року
+    public void listStudentsBornAfterYear(int year) {
+        System.out.println("\n--- Студенти, народжені після " + year + " року ---");
+        LocalDate targetDate = LocalDate.of(year, 12, 31);
+        boolean found = false;
+        for (Student s : students) {
+            if (s.getDateOfBirth().isAfter(targetDate)) {
+                System.out.println(s);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Студентів, народжених після " + year + " року, не знайдено.");
+        }
+    }
+
+    // Метод для виведення списку студентів заданої навчальної групи
+    public void listStudentsByGroup(String targetGroup) {
+        System.out.println("\n--- Студенти групи '" + targetGroup + "' ---");
+        boolean found = false;
+        for (Student s : students) {
+            if (s.getGroup().equalsIgnoreCase(targetGroup)) {
+                System.out.println(s);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Студентів у групі '" + targetGroup + "' не знайдено.");
+        }
+    }
+}
