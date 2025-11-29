@@ -1,0 +1,41 @@
+import java.util.Scanner;
+
+public class NumberCombiner {
+
+    /**
+     * Приймає три окремі цифри (int) і перетворює їх на одне ціле число.
+     * Використовує конкатенацію рядків для спрощення об'єднання.
+     *
+     * @param digit1 Перша цифра (сотні).
+     * @param digit2 Друга цифра (десятки).
+     * @param digit3 Третя цифра (одиниці).
+     * @return Об'єднане трицифрове число.
+     */
+    public static int combineDigits(int digit1, int digit2, int digit3) {
+        // Перетворюємо цифри на рядок, об'єднуємо їх, а потім перетворюємо назад на int
+        String combinedString = "" + digit1 + digit2 + digit3;
+        return Integer.parseInt(combinedString);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Будь ласка, введіть три окремі цифри:");
+
+        System.out.print("Перша цифра: ");
+        int d1 = scanner.nextInt();
+
+        System.out.print("Друга цифра: ");
+        int d2 = scanner.nextInt();
+
+        System.out.print("Третя цифра: ");
+        int d3 = scanner.nextInt();
+
+        // Викликаємо функцію для об'єднання цифр
+        int result = combineDigits(d1, d2, d3);
+
+        System.out.println("\nРезультат об'єднання цифр " + d1 + ", " + d2 + ", " + d3 + ": **" + result + "**");
+
+        scanner.close();
+    }
+}
