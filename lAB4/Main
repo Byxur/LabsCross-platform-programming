@@ -1,0 +1,23 @@
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        // 1. Створення масиву об'єктів Student
+        Student[] studentsArray = {
+            new Student(1, "Іванов", "Іван", "Іванович", LocalDate.of(2003, 1, 15), "Вул. Шевченка 1", "0991234567", "ФІОТ", 3, "ІК-01"),
+            new Student(2, "Петренко", "Петро", "Петрович", LocalDate.of(2002, 5, 20), "Вул. Бандери 5", "0997654321", "ФІОТ", 3, "ІК-01"),
+            new Student(3, "Сидорова", "Олена", "Сергіївна", LocalDate.of(2004, 10, 1), "Пр. Перемоги 10", "0971112233", "ФЕЛ", 2, "ЕЛ-51"),
+            new Student(4, "Коваленко", "Марія", "Іванівна", LocalDate.of(2001, 3, 11), "Вул. Науки 2", "0934445566", "ФІОТ", 4, "ІК-02"),
+            new Student(5, "Шевченко", "Андрій", "Миколайович", LocalDate.of(2003, 8, 25), "Вул. Лісова 3", "0956667788", "ФЕЛ", 3, "ЕЛ-52"),
+            new Student(6, "Бондаренко", "Віталій", "Олександрович", LocalDate.of(2005, 12, 30), "Вул. Садова 4", "0968889900", "ФІОТ", 2, "ІК-03")
+        };
+
+        StudentManager manager = new StudentManager(studentsArray);
+
+        // 2. Виконання завдань згідно критеріїв вибору даних
+        manager.listStudentsByFaculty("ФІОТ");
+        manager.listStudentsByFacultyAndCourse();
+        manager.listStudentsBornAfterYear(2003); // Приклад критерію: після 2003 року
+        manager.listStudentsByGroup("ІК-01");
+    }
+}
