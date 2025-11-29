@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class MaxDigitFinder {
+
+    /**
+     * Рекурсивна функція для пошуку максимальної цифри в числі.
+     * Примітка: працює коректно для невід'ємних чисел.
+     *
+     * @param number Початкове число.
+     * @param maxDigit Поточна максимальна цифра, знайдена до цього моменту.
+     * @return Максимальна цифра в числі.
+     */
+    public static int findMaxDigitRecursive(int number, int maxDigit) {
+        // Базовий випадок: якщо число дорівнює 0, повертаємо поточну максимальну цифру.
+        if (number == 0) {
+            return maxDigit;
+        }
+
+        // Отримуємо останню цифру числа
+        int currentDigit = number % 10;
+
+        // Оновлюємо максимальну цифру, якщо поточна цифра більша
+        if (currentDigit > maxDigit) {
+            maxDigit = currentDigit;
+        }
+
+        // Рекурсивний виклик: передаємо число без останньої цифри (ділення на 10)
+        // та оновлене значення максимальної цифри
+        return findMaxDigitRecursive(number / 10, maxDigit);
+    }
+
+    // Допоміжна функція для ініціалізації першого виклику
+    public static int findMaxDigit(int number) {
+        if (number == 0) {
+            return 0; // Якщо вхідне число 0, максимальна цифра - 0
+        }
+        // Початкове значення maxDigit беремо з останньої цифри числа,
+        // щоб коректно обробити числа, що не дорівнюють нулю.
+        return findMaxDigitRecursive(number / 10, number % 10);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введіть ціле невід'ємне число: ");
+        
+        if (scanner.hasNextInt()) {
+            int inputNumber = scanner.nextInt();
+            if (inputNumber >= 0) {
+                int max = findMaxDigit(inputNumber);
+                System.out.println("Максимальна цифра в числі **" + inputNumber + "**: **" + max + "**");
+            } else {
+                System.out.println("Будь ласка, введіть невід'ємне число.");
+            }
+        } else {
+            System.out.println("Некоректне введення.");
+        }
+        scanner.close();
+    }
+}
