@@ -1,0 +1,64 @@
+import java.util.Scanner;
+
+public class Main {
+
+    // Функція заповнення масиву випадковими числами
+    public static void fillArray(int[] arr, int min, int max) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) (Math.random() * (max - min + 1) + min);
+        }
+    }
+
+    // Функція виведення масиву
+    public static void printArray(int[] arr) {
+        for (int x : arr) {
+            System.out.print(x + " ");
+        }
+        System.out.println();
+    }
+
+    // Функція перевірки: чи цифри числа строго зростають
+    public static boolean isDigitsIncreasing(int num) {
+        String s = String.valueOf(Math.abs(num)); // працюємо зі строкою цифр
+
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i + 1) <= s.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Пошук першого числа зі строго зростаючими цифрами
+    public static Integer findFirstIncreasing(int[] arr) {
+        for (int x : arr) {
+            if (isDigitsIncreasing(x)) {
+                return x;
+            }
+        }
+        return null; // якщо не знайдено
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Введіть розмір масиву: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        // Заповнюємо масив випадковими числами, наприклад від 10 до 999
+        fillArray(arr, 10, 999);
+
+        System.out.print("Масив: ");
+        printArray(arr);
+
+        Integer result = findFirstIncreasing(arr);
+
+        if (result == null) {
+            System.out.println("Числа зі строго зростаючими цифрами не знайдено.");
+        } else {
+            System.out.println("Перше число зі строго зростаючими цифрами: " + result);
+        }
+    }
+}
