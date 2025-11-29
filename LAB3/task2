@@ -1,0 +1,80 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class MatrixShift {
+
+    // Функція для введення розмірності n та k з консолі
+    public static int readIntFromConsole(String prompt, Scanner scanner) {
+        System.out.print(prompt);
+        while (!scanner.hasNextInt()) {
+            System.out.println("Некоректне введення. Будь ласка, введіть ціле число.");
+            scanner.next();
+        }
+        return scanner.nextInt();
+    }
+
+    // Функція для ініціалізації матриці випадковими числами в діапазоні [-n, n]
+    public static int[][] initializeMatrix(int n) {
+        int[][] matrix = new int[n][n];
+        Random rand = new Random();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                // Генерація числа в діапазоні [0, 2n] та зсув на -n для діапазону [-n, n]
+                matrix[i][j] = -n + rand.nextInt(2 * n + 1);
+            }
+        }
+        return matrix;
+    }
+
+    // Функція для циклічного зсуву матриці вгору на k позицій
+    public static void shiftMatrixUp(int[][] matrix, int k) {
+        int n = matrix.length;
+        k = k % n; // Нормалізація k, якщо k >= n або k < 0
+        if (k == 0) return;
+
+        // Використання тимчасового масиву для зберігання верхніх рядків
+        int[][] temp = new int[k][n];
+        for (int i = 0; i < k; i++) {
+            temp[i] = matrix[i];
+        }
+
+        // Зсув решти рядків вгору
+        for (int i = k; i < n; i++) {
+            matrix[i - k] = matrix[i];
+        }
+
+        // Розміщення збережених рядків в кінці матриці
+        for (int i = 0; i < k; i++) {
+            matrix[n - k + i] = temp[i];
+        }
+    }
+
+    // Функція для виведення матриці на консоль
+    public static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int element : row) {
+                System.out.printf("%4d", element);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = readIntFromConsole("Введіть розмірність матриці n: ", scanner);
+        int k = readIntFromConsole("Введіть кількість позицій k для зсуву вгору: ", scanner);
+
+        int[][] a = initializeMatrix(n);
+
+        System.out.println("\n*** Початкова матриця ***");
+        printMatrix(a);
+
+        shiftMatrixUp(a, k);
+
+        System.out.println("\n*** Матриця після циклічного зсуву вгору на " + k + " позицій ***");
+        printMatrix(a);
+
+        scanner.close();
+    }
+}
