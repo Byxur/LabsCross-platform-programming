@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int count = 0;      // кількість парних чисел
+        int x = sc.nextInt();
+
+        while (x != 0) {
+            if (x % 2 == 0) {
+                count++;
+            }
+            x = sc.nextInt();   // читаємо наступне число
+        }
+
+        System.out.println(count);
+    }
+}
